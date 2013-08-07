@@ -1,0 +1,35 @@
+linq like syntax
+
+where
+	Element: $exists, $mod, $type
+	when size is $gt 4 someting like that
+
+later
+indexing
+
+tests
+	Array: $elemMatch, $size
+	Javascript: $where, $regex
+clean up
+
+
+done
+----
+where
+	deep compare
+	comparison: $ne,$lt,$lte,$gt,$gte,$in,$ni,$all
+	shortcut comparison: "x.y": 2, instead of x:{y:2}
+	logical: $or,$and, $not, $nor
+	Array: $elemMatch, $size
+	Javascript: $where, $regex
+	condition is a function
+	
+tests	
+	deep compare
+	comparison: $ne,$lt,$lte,$gt,$gte,$in,$ni,$all
+	shortcut comparison: "x.y": 2, instead of x:{y:2}
+	logical: $or,$and, $not, $nor
+	Array: $elemMatch, $size
+	condition is a function
+
+
