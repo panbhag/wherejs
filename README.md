@@ -11,7 +11,6 @@ var users = [
               {name:{fname:'David',lname:'Jones'},age:28, salary:10000 },
               {name:{fname:'James',lname:'Smit'},age:38, salary: 20000 },
               {name:{fname:'Paul',lname:'Lee'},age:19,salary:60000 }
-              
            ]
 //select users who are above 30 years of age  
 var result = where(users,{age:{$gt:30} }); // [{name:{fname:'James',lname:'Smit'},age:38, salary: 20000 }]
@@ -32,114 +31,67 @@ Installing
 ----------
 include the dependencies and the file where.js in the page you want to use.
 
+```javascript
+<script type="text/javascript" src="where.js"></script>
+```
 
 Using
 -----
 
-shiva.transform(input,options)
+where(input,options)
 
 Examples
 
 Rename object keys
 ```javascript
- var input = {x:1,y:2,z:3};
- var output = shiva.transform(input,{rename:{x:'a',y:'b',z:'c'}}); //output is  {a:1,b:2,c:3}
+ var input = [{x:1,y:2},{x:1,y:1},{x:2,y:3},{x:2,y:2}];
+ var output = where(input, {x:1}); //output is [{x:1,y:2},{x:1,y:1}]
 ````
-
-Select only some keys from object
-```javascript
-var input = {x:1,y:2,z:3};
-var output = shiva.transform(input,{only:["y","z"]}); // output is {y:2,z:3}
-````
-
-Select some keys and rename
-```javascript
- var input = {x:1,y:2,z:3};
- var output = shiva.transform(input,{only:["y"],rename:{y:"b"} }); //output is  {b:2}
-```
-
-Select all keys except some
-```javascript
- var input = {x:1,y:2,z:3};
- var output  = shiva.transform(input,{except:["y"]});//output is  {x:1,z:3}
-```
-
-Select all keys except some and rename
-```javascript
- var input = {x:1,y:2,z:3};
- var output  = shiva.transform(input,{except:["y"],rename:{x:"a",z:"c"} });//output is  {b:1,c:3}
-```
-
-Add new key(s) value of which is based on other keys
-```javascript         
- var input = {x:1,y:2,z:3};
- var output = shiva.transform(input,{only:[],
-            methods:{sum:function(input){ 
-                            var sum = input.x + input.y + input.z;
-                            var avg = sum/3.0;
-                            return {sum:sum,avg:avg}
-           } 
-                        }
-    });
-  //output is {sum:6,avg:2}
-```
-
-
-If the input object is an array of objects, then the transformation is applied to all the objects
-```javascript
-  var comments = [{id:"1",postText:"hello",partyId:12},{id:"2",postText:"hello2",partyId:2}]
-  var output = shiva.transform(comments,{only:["postText","partyId"], rename:{"postText":"text",partyId:"creatorId"}});
-  //output is [{id:"1", text:"hello",creatorId:12},{id:"2",text:"hello2",creatorId:2}]    
-```
-
-To transform embedded objects
-```javascript
-var input = {x:1,comments:[{id:"1",postText:"hello",partyId:12},{id:"2",postText:"hello2",partyId:2}]};
-
-var output = shiva.transform(input,{only:["comments"],properties:{"comments":{
- only:["postText","partyId"], rename:{"postText":"text",partyId:"creatorId"}
-}
-},
-transform:function(res){ return res.comments}
-});
-//output is {comments:[{text:'hello', creatorId:12},{text:'hello2', creatorId:12}]} 
-```
-
 
 
 
 Documentation
 -----
-shiva.transform(input,options)
+where(input,filter)
 
-input can be any object/basic data type, array. if it is an array, the mapping will be applied to each data.
+input is an array of objects to be searched in. The original object is not modified
 
-options: it can be a function or a object
-if it is a function then it takes the input as the argument and output is the return value of the function. If the input is an array then the function is called for each input element.
+filter is an object with key as the name of the field to be filter upon  and value is the either a value or another object
+with selector
 
-if the input is an array then the function is executed for each element of the array. and the output array is returned.
 
-options can be an object with following options
-only: array of fields to select only
 
-except: array of fields to be excluded. At a time only one of the options "only" or "except" should be used
+Comparison operators
+--------------
+$ne
+$lt
+$lte
+$gt
+$gte
+$in
+$ni
 
-rename: object of key value pair, with key as current name, property as new name
-property specific tranformation: can replace the array syntax,and methods for simple 
+Logical operators
+-----------------
+$or
+$and
+$not
+$nor
 
-properties
+Array Operators
+---------------
+$elemMatch
+$size
+$all
 
-comments:mapper, // does shiva.transform(comments,mapper)
 
-comments:function(){}, // does manipulation on the value of comments, if comments is an array will apply on each value.   
+General operators
+-----------------
+$where
+$regex
 
-methods: array of methods which return a key value pair which is merged into result
-array: input property, output property or only property(no rename), mapper: to map each element
 
-transform: passes the result to transform function which transforms the result(obtained after applying all options) and returns the final result
 
-pending: 
-pipes: temp(transform)
-   
-   
+
+
 
