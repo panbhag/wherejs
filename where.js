@@ -1,12 +1,15 @@
-function where(list,conditions)
-{
+(function(){
 
+ var root = this;
 
 function selector(type,value,condition)
 { 
    var result;
 			switch(type)
 			{
+				case 'eq':
+					result = value == condition;
+					break;
 				case "ne":
 				  result = value != condition;
 				  break;
@@ -93,11 +96,21 @@ function selector(type,value,condition)
 			return result;
 }
 
+
 function compare(object,conditions)
 {
 	result = false;
-	
-    
+
+	if(_.isBoolean(conditions) || _.isNumber(conditions) || _.isString(conditions) )
+    {
+	    conditions = {$eq:conditions};
+	}
+
+	if(_.isArray(conditions))
+	{
+		conditions = {$in:conditions};
+	}
+
 	if(_.isFunction(conditions))
     {
 	    return conditions(object)
@@ -131,14 +144,23 @@ function compare(object,conditions)
 
 }
 
- function deepValue(obj, path){
+function deepValue(obj, path){
     for (var i=0, path=path.split('.'), len=path.length; i<len; i++){
         obj = obj[path[i]];
     };
     return obj;
 };
-	
+
+
+function where(list,conditions)
+{
 	var result = _.filter(list, function(object){ return compare(object,conditions) });
 	return result;
 }
+
+root.where = where;
+
+})(this)
+
+
 

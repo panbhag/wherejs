@@ -41,6 +41,42 @@ describe("where method",function(){
 
     })
 
+     it("filtering arrays of basic types with equality test",function(){
+	 
+	   var input = [1,1,1,2,2];
+	   var output = where(input,1);
+	   output.should.have.length(3);
+	   output.should.include(1);
+	   output.should.not.include(2);
+
+	 })
+
+     it("filtering arrays of basic types with in test",function(){
+	 
+	   var input = [1,6,3,4,5,2];
+	   var output = where(input,[1,2,3]);
+	   output.should.have.length(3);
+	   output.should.include(1);
+	   output.should.include(2);
+	   output.should.include(3);
+	   output.should.not.include(4);
+	   output.should.not.include(5);
+	   output.should.not.include(6);
+	 })
+
+
+	it("selector $eq",function(){
+    
+         var input = [{x:1},{x:2},{x:3}];
+         
+         var output = where(input,{x:{$eq:1}});
+         output.should.have.length(1);
+		 output.should.contain.a.thing.with.property("x", 1);
+		 output.should.not.contain.a.thing.with.property("x", 2);
+		 output.should.not.contain.a.thing.with.property("x", 3);
+
+    })
+
 	it("selector $ne",function(){
     
          var input = [{x:1},{x:2},{x:3}];
@@ -127,6 +163,12 @@ describe("where method",function(){
          var input = [{x:1},{x:2},{x:3}];
          
          var output = where(input,{x:{$or:[{$gt:2},{$lt:2}]   }});
+         output.should.have.length(2);
+		 output.should.not.contain.a.thing.with.property("x", 2);
+		 output.should.contain.a.thing.with.property("x", 1);
+		 output.should.contain.a.thing.with.property("x", 3);
+
+		 var output = where(input,{$or:[ {x:{$gt:2} }, {x:{$lt:2} }] });
          output.should.have.length(2);
 		 output.should.not.contain.a.thing.with.property("x", 2);
 		 output.should.contain.a.thing.with.property("x", 1);

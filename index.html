@@ -8,28 +8,8 @@
   <meta name="Description" content=""> 
 
   <script type = "text/javascript" src='underscore.js'></script>
-  <script type="text/javascript" src="core.js"></script>
-  <script type = "text/javascript" src='commands.js'></script>
+  <script type="text/javascript" src="where.js"></script>
 
-
-  <script type="text/javascript">
-  ///////////////////////////////////////////////////////////////////////////////////
-/////////////  Test //////////////
-/////////////////////////////////////////////////////
-
-	var ideas_references = {user:{from:"users"}}
-
-	Pongodb.addReference(ideas_references,'ideas');
-	var obj = {name:"Pankaj"};
-	Commands.insert(obj,"users");
-	Commands.insert({title:"Movie Chalo",user:1},"ideas")
-	Commands.insert({title:"Organic",user:1},"ideas")
-	Commands.update(1,{name:"Pankaj Bhageria"},"users");
-	console.log(database.ideas.records);
-	Commands.delete(1,"ideas");
-	console.log(database.ideas.records);
-
-  </script>
  
  </head>
 

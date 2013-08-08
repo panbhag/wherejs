@@ -1,21 +1,34 @@
-linq like syntax
-
+documentation
+website
+versioning
 where
+	between
+	String:
+		like
+		case insensitive search
+		containts
+		starts with
+		endswith
+	Array
+		match particular array index
+		match particular elements in array which specify certain conditions
 	Element: $exists, $mod, $type
 	when size is $gt 4 someting like that
 
+
 later
 indexing
+linq like syntax
 
 tests
 	Array: $elemMatch, $size
 	Javascript: $where, $regex
-clean up
 
 
 done
 ----
 where
+	filtering an array of strings/numbers etc ie basic types when there is no key value pairs
 	deep compare
 	comparison: $ne,$lt,$lte,$gt,$gte,$in,$ni,$all
 	shortcut comparison: "x.y": 2, instead of x:{y:2}
