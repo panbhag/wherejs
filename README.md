@@ -42,7 +42,7 @@ where(input,filter)
 
 input is an array of objects to be searched in. The original object is not modified
 
-filter specifies which record to select. We will understand the format of filter from few examples.
+filter specifies which records to select. We will understand the format of filter from few examples.
 
 In all the below examples users would be referring to the below array.
 ```javascript
