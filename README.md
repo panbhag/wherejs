@@ -123,16 +123,20 @@ where(input,filter)
 
 input is an array of objects to be searched in. The original object is not modified
 
-filter 
- if input is an array of basic types then filter can be 
-              - a basic type
-              - an array of basic type 
-              - object containing filters
-              - function with one argument which returns true for every element which has to be selected
+filter
+
+if input is an array of basic types then filter can be 
+
+- a basic type
+- an array of basic type 
+- object containing filters
+- function with one argument which returns true for every element which has to be selected
               
- if input is an array of objects, then filter can be
-              - obeject containing filters
-              - function
+
+if input is an array of objects, then filter can be
+
+- obeject containing filters
+- function
 
 
 ####Comparison operators
