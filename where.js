@@ -3,12 +3,21 @@
  var root = this;
 
 function selector(type,value,condition)
-{ 
+{
+	
    var result;
 			switch(type)
 			{
 				case 'eq':
-					result = value == condition;
+					
+					if(condition instanceof RegExp)
+					{
+						result = condition.test(value);
+					}
+					else
+				    {
+						result = value == condition;
+					}
 					break;
 				case "ne":
 				  result = value != condition;
@@ -44,6 +53,23 @@ function selector(type,value,condition)
 						return i_result;
 				   });
 				  break;
+
+				 case 'startsWith':
+
+				   result = (value[0] == condition);
+				   break;
+                 
+				 case 'endsWith':
+
+				   result = (value.slice(-1) == condition);
+				   break;
+			     case 'iMatch': // case insensitive match
+				   result = (value.toLowerCase() == condition.toLowerCase() );
+				   break;
+				 case 'contains': //
+					result = (value.indexOf(condition) != -1);
+				  break;
+
 				 case "and":
 					//value should an array
 				   var conditions_array = condition;

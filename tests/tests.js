@@ -1,8 +1,4 @@
-
-
 var should = chai.should();
-//alert(1);
-
 
 
 describe("where method",function(){
@@ -240,7 +236,6 @@ describe("where method",function(){
 		 output.should.not.contain.a.thing.with.property("x", 2);
 		 output.should.not.contain.a.thing.with.property("x", 3);
 		 output.should.contain.a.thing.with.property("x", 1);
-
     })
 
 
@@ -255,6 +250,60 @@ describe("where method",function(){
 		 output.should.contain.a.thing.with.property("x", 1);
 
     })
+
+   it("string startsWith",function(){
+    
+         var input =    [{x:'Agra'},{x:"Amritsar"},{x:'Bangalore'}];
+         
+         var output = where(input, {x:{$startsWith:'A'}} );
+         output.should.have.length(2);
+		 output.should.contain.a.thing.with.property("x","Agra");
+		 output.should.contain.a.thing.with.property("x", "Amritsar");
+		 output.should.not.contain.a.thing.with.property("x", "Bangalore");
+    })
+
+    it("string endsWith",function(){
+    
+         var input =    [{x:'Agra'},{x:"Amritsar"},{x:'Bangalore'}];
+         
+         var output = where(input, {x:{$endsWith:'e'}} );
+         output.should.have.length(1);
+		 output.should.not.contain.a.thing.with.property("x","Agra");
+		 output.should.not.contain.a.thing.with.property("x", "Amritsar");
+		 output.should.contain.a.thing.with.property("x", "Bangalore");
+    })
+
+    
+	it("string contains",function(){
+    
+         var input =    [{x:'aaAaa'},{x:"bbAaabcd"},{x:'Baabcd'}];
+         var output = where(input, {x:{$contains:'Aaa'}} );
+         output.should.have.length(2);
+		 output.should.contain.a.thing.with.property("x","aaAaa");
+		 output.should.contain.a.thing.with.property("x", "bbAaabcd");
+		 output.should.not.contain.a.thing.with.property("x", "Baabcd");
+    })
+
+
+   	it("string iMatch",function(){
+    
+         var input =    [{x:'abcd'},{x:"ABcD"},{x:'aaaa'}];
+         var output = where(input, {x:{$iMatch:'abcd'}} );
+         output.should.have.length(2);
+		 output.should.contain.a.thing.with.property("x","abcd");
+		 output.should.contain.a.thing.with.property("x", "ABcD");
+		 output.should.not.contain.a.thing.with.property("x", "aaaa");
+    })
+
+    it("string $regex");
+
+    it("string regex without selector");
+
+
+
+
+
+
 
     
 

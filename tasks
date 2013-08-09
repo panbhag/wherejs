@@ -1,19 +1,17 @@
-documentation
-website
+making it a node module
 versioning
 where
-	between
+	number	
+		between
 	String:
-		like
-		case insensitive search
-		containts
-		starts with
-		endswith
+		finalize the behaviour of the case insensitive(true or false) for all string comparisons
+		if value is a regex it should match accordingly
 	Array
 		match particular array index
 		match particular elements in array which specify certain conditions
 	Element: $exists, $mod, $type
 	when size is $gt 4 someting like that
+	value: value/function
 
 
 later
@@ -36,6 +34,13 @@ where
 	Array: $elemMatch, $size
 	Javascript: $where, $regex
 	condition is a function
+	String:
+		case insensitive search: iMatch
+		contains
+		startsWith
+		endsWith
+
+		
 	
 tests	
 	deep compare
@@ -44,5 +49,13 @@ tests
 	logical: $or,$and, $not, $nor
 	Array: $elemMatch, $size
 	condition is a function
+	String:
+		case insensitive search: iMatch
+		contains
+		startsWith
+		endsWith
+
+documentation
+website
 
 
