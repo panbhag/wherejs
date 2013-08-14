@@ -5,11 +5,20 @@
 function selector(type,value,condition)
 {
 	
+
+      if(_.isString(value) )
+      {
+        value = value.toLowerCase();           
+      }
+      
+
+
    var result;
 			switch(type)
 			{
 				case 'eq':
 					
+                    
 					if(condition instanceof RegExp)
 					{
 						result = condition.test(value);
@@ -56,18 +65,15 @@ function selector(type,value,condition)
 
 				 case 'startsWith':
 
-				   result = (value[0] == condition);
+				   result = (value[0] == condition.toLowerCase());
 				   break;
                  
 				 case 'endsWith':
 
-				   result = (value.slice(-1) == condition);
-				   break;
-			     case 'iMatch': // case insensitive match
-				   result = (value.toLowerCase() == condition.toLowerCase() );
+				   result = (value.slice(-1) == condition.toLowerCase());
 				   break;
 				 case 'contains': //
-					result = (value.indexOf(condition) != -1);
+					result = (value.indexOf(condition.toLowerCase()) != -1);
 				  break;
 
 				 case "and":

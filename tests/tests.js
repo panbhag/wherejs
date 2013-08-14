@@ -285,15 +285,7 @@ describe("where method",function(){
     })
 
 
-   	it("string iMatch",function(){
-    
-         var input =    [{x:'abcd'},{x:"ABcD"},{x:'aaaa'}];
-         var output = where(input, {x:{$iMatch:'abcd'}} );
-         output.should.have.length(2);
-		 output.should.contain.a.thing.with.property("x","abcd");
-		 output.should.contain.a.thing.with.property("x", "ABcD");
-		 output.should.not.contain.a.thing.with.property("x", "aaaa");
-    })
+
 
     it("string $regex");
 
