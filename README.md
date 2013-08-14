@@ -43,7 +43,7 @@ Search from a set of numbers or strings
 //Numbers
  where([1,1,3,4],[1,2,4]); // [1,1,4]
 //or
- where([1,1,3,4,{$in:[1,2,4]}) // [1,1,4]
+ where([1,1,3,4],{$in:[1,2,4]}) // [1,1,4]
 
 //Strings
 where(['aa','bb','aa','ab','bc'],['aa','ab']); //['aa',,'aa','ab']
