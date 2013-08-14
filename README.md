@@ -76,15 +76,22 @@ This nesting can go to any level
 ###Number Operations(less than, greater than)
 
 Search numbers less than 5
+
+```javascript
 where([3,4,5,6,7],{$lt:5}) // returns [3,4]
+```
 
 On objects
 Search users with age greater than 30.
+
+```javascript
 where(users,{age:{$gt:30} }); 
-
+```
 Search users with age less than 20 and salary greater than 50000
-where(users,{age:{$lt:20}, salary:{$gt:50000} }); 
 
+```javascript
+where(users,{age:{$lt:20}, salary:{$gt:50000} }); 
+```
 There are other operators like less than equal to, greater than equal($lte, $gte).
 
 ###String Operations
@@ -92,14 +99,19 @@ There are other operators like less than equal to, greater than equal($lte, $gte
 All string operations are case insensitive.
 
 Search for strings which start with A
+
+```javascript
 var input =  ["Agra", "Amritsar", "Bangalore"];
 where(input, {$startsWith:'A'} );//["Agra","Amritsar"];
-
+```
 Similarly there is a $endsWith operator, and a $regex to match regex
 
 $contains operator, to search for a string anywhere in the input
+
+```javascript
 input =    [{x:'aaAaa'},{x:"bbAaabcd"},{x:'Baabcd'}];
 where(input, {x:{$contains:'Aaa'}} ); //[{x:'aaAaa'},{x:"bbAaabcd"}];
+```
 
 ###Logical Operations
 These operators accepts an array of filters.
@@ -107,21 +119,32 @@ These operators accepts an array of filters.
 $or: Returns true if any one of the filters return true
 
 Search for users with age greater than 30 or salary greater than 50000
+
+```javascript
 where(users,{$or:[ {age:{$gt:30}},{salary:{$gt:50000}}] });
+```
 
 Similarly there are $and(default: all should be true) and $nor(all should be false).
 
 $not: inverses the output of the filter.
+
+```javascript
 where(users,{$not:{fname:'David'}}); 
+```
 
 ###Condition as a function
 This can be used to give custom filters
 
-Search for all even numbers 
+Search for all even numbers
+
+```javascript
 where([3,4,5,6,7],function(o){ return (o%2 == 0) }  ) //  [4,6]
+```
 
 Search for users whose age is 50
+```javascript
 where(users,{age:function(a){ return a == 50} } )
+```
 
 
 Documentation
