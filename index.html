@@ -49,23 +49,7 @@
         <h1>
 <a name="wherejs" class="anchor" href="#wherejs"><span class="octicon octicon-link"></span></a>wherejs</h1>
 
-<p>A JavaScript library to search in JSON arrays, with mongodb like syntax.</p>
-
-<h2>
-<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
-
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">users</span> <span class="o">=</span> <span class="p">[</span>
-              <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="p">{</span><span class="nx">fname</span><span class="o">:</span><span class="s1">'David'</span><span class="p">,</span><span class="nx">lname</span><span class="o">:</span><span class="s1">'Jones'</span><span class="p">},</span><span class="nx">age</span><span class="o">:</span><span class="mi">28</span><span class="p">,</span> <span class="nx">salary</span><span class="o">:</span><span class="mi">10000</span> <span class="p">},</span>
-              <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="p">{</span><span class="nx">fname</span><span class="o">:</span><span class="s1">'James'</span><span class="p">,</span><span class="nx">lname</span><span class="o">:</span><span class="s1">'Smit'</span><span class="p">},</span><span class="nx">age</span><span class="o">:</span><span class="mi">38</span><span class="p">,</span> <span class="nx">salary</span><span class="o">:</span> <span class="mi">20000</span> <span class="p">},</span>
-              <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="p">{</span><span class="nx">fname</span><span class="o">:</span><span class="s1">'Paul'</span><span class="p">,</span><span class="nx">lname</span><span class="o">:</span><span class="s1">'Lee'</span><span class="p">},</span><span class="nx">age</span><span class="o">:</span><span class="mi">19</span><span class="p">,</span><span class="nx">salary</span><span class="o">:</span><span class="mi">60000</span> <span class="p">}</span>
-           <span class="p">]</span>
-<span class="c1">//select users who are above 30 years of age  </span>
-<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">age</span><span class="o">:</span><span class="p">{</span><span class="nx">$gt</span><span class="o">:</span><span class="mi">30</span><span class="p">}</span> <span class="p">});</span> <span class="c1">// [{name:{fname:'James',lname:'Smit'},age:38, salary: 20000 }]</span>
-
-<span class="c1">//select users whose salary is above 50000 and are less than 20 years of age</span>
-<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">age</span><span class="o">:</span><span class="p">{</span><span class="nx">$lt</span><span class="o">:</span><span class="mi">20</span><span class="p">},</span> <span class="nx">salary</span><span class="o">:</span><span class="p">{</span><span class="nx">$gt</span><span class="o">:</span><span class="mi">50000</span><span class="p">}</span> <span class="p">});</span> <span class="c1">// [{name:{fname:'James',lname:'Smit'},age:38, salary: 20000 }]</span>
-
-</pre></div>
+<p>A JavaScript library to search(deep search) in JSON arrays, with mongodb like syntax.</p>
 
 <h2>
 <a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies:</h2>
@@ -77,7 +61,8 @@
 
 <p>include the dependencies and the file where.js in the page you want to use.</p>
 
-<div class="highlight"><pre><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"where.js"</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<div class="highlight"><pre><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"path_to_underscore.js"</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"path_to_where.js"</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
 </pre></div>
 
 <h2>
@@ -89,6 +74,33 @@
 
 <p>filter specifies which records to select. We will understand the format of filter from few examples.</p>
 
+<h3>
+<a name="simple-search" class="anchor" href="#simple-search"><span class="octicon octicon-link"></span></a>Simple Search</h3>
+
+<p>Search simple strings or numbers</p>
+
+<div class="highlight"><pre> <span class="nx">where</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// outputs [1,1,1]</span>
+ <span class="nx">where</span><span class="p">([</span><span class="s1">'aa'</span><span class="p">,</span><span class="s1">'bb'</span><span class="p">,</span><span class="s1">'aa'</span><span class="p">,</span><span class="s1">'ab'</span><span class="p">,</span><span class="s1">'bc'</span><span class="p">],</span><span class="s1">'aa'</span><span class="p">);</span> <span class="c1">//['aa','aa']</span>
+</pre></div>
+
+<p>Selecting from a set of elements</p>
+
+<p>Search from a set of numbers or strings</p>
+
+<div class="highlight"><pre><span class="c1">//Numbers</span>
+ <span class="nx">where</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]);</span> <span class="c1">// [1,1,4]</span>
+<span class="c1">//or</span>
+ <span class="nx">where</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],{</span><span class="nx">$in</span><span class="o">:</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]})</span> <span class="c1">// [1,1,4]</span>
+
+<span class="c1">//Strings</span>
+<span class="nx">where</span><span class="p">([</span><span class="s1">'aa'</span><span class="p">,</span><span class="s1">'bb'</span><span class="p">,</span><span class="s1">'aa'</span><span class="p">,</span><span class="s1">'ab'</span><span class="p">,</span><span class="s1">'bc'</span><span class="p">],[</span><span class="s1">'aa'</span><span class="p">,</span><span class="s1">'ab'</span><span class="p">]);</span> <span class="c1">//['aa',,'aa','ab']</span>
+</pre></div>
+
+<p>Another operator $nin(not in) does the opposite of $in.</p>
+
+<h3>
+<a name="deep-search-in-objects" class="anchor" href="#deep-search-in-objects"><span class="octicon octicon-link"></span></a>Deep Search in objects</h3>
+
 <p>In all the below examples users would be referring to the below array.</p>
 
 <div class="highlight"><pre><span class="kd">var</span> <span class="nx">users</span> <span class="o">=</span> <span class="p">[</span>
@@ -99,59 +111,87 @@
            <span class="p">]</span>
 </pre></div>
 
-<p>Select a particular element from an array of basic types(Number/String/Boolean).</p>
+<p>Search users with first name "David"</p>
 
-<div class="highlight"><pre> <span class="nx">where</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// outputs [1,1,1]</span>
-</pre></div>
-
-<p>Selecting more than one element from an array of basic types</p>
-
-<div class="highlight"><pre> <span class="nx">where</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">]);</span> <span class="c1">// outputs [1,1,4]</span>
-</pre></div>
-
-<p>Select users with first name David</p>
-
-<div class="highlight"><pre> <span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">name</span><span class="o">:</span><span class="p">{</span><span class="nx">fname</span><span class="o">:</span><span class="s1">'David'</span><span class="p">}});</span>
+<div class="highlight"><pre><span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">name</span><span class="o">:</span><span class="p">{</span><span class="nx">fname</span><span class="o">:</span><span class="s1">'David'</span><span class="p">}});</span>
  <span class="c1">//OR</span>
- <span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="s1">'name.fname'</span><span class="o">:</span><span class="s1">'David'</span><span class="p">});</span>
+<span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="s1">'name.fname'</span><span class="o">:</span><span class="s1">'David'</span><span class="p">});</span>
 </pre></div>
 
-<p>Select users with first name David and Last name Lee</p>
+<p>This nesting can go to any level</p>
 
-<div class="highlight"><pre> <span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">name</span><span class="o">:</span><span class="p">{</span><span class="nx">fname</span><span class="o">:</span><span class="s1">'David'</span><span class="p">,</span><span class="nx">lname</span><span class="o">:</span><span class="s1">'Lee'</span><span class="p">}});</span>
- <span class="c1">//OR</span>
- <span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="s1">'name.fname'</span><span class="o">:</span><span class="s1">'David'</span><span class="p">,</span><span class="s1">'fname.lname'</span><span class="o">:</span><span class="s1">'Lee'</span><span class="p">});</span>
+<h3>
+<a name="number-operationsless-than-greater-than" class="anchor" href="#number-operationsless-than-greater-than"><span class="octicon octicon-link"></span></a>Number Operations(less than, greater than)</h3>
+
+<p>Search numbers less than 5</p>
+
+<div class="highlight"><pre><span class="nx">where</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],{</span><span class="nx">$lt</span><span class="o">:</span><span class="mi">5</span><span class="p">})</span> <span class="c1">// returns [3,4]</span>
 </pre></div>
 
-<p>Select all numbers less than 5</p>
+<p>On objects
+Search users with age greater than 30.</p>
 
-<div class="highlight"><pre> <span class="nx">where</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],{</span><span class="nx">$lt</span><span class="o">:</span><span class="mi">5</span><span class="p">})</span> <span class="c1">// returns [3,4]</span>
+<div class="highlight"><pre><span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">age</span><span class="o">:</span><span class="p">{</span><span class="nx">$gt</span><span class="o">:</span><span class="mi">30</span><span class="p">}</span> <span class="p">});</span> 
 </pre></div>
 
-<p>Select users with age less than 30</p>
+<p>Search users with age less than 20 and salary greater than 50000</p>
 
-<div class="highlight"><pre> <span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">age</span><span class="o">:</span><span class="p">{</span><span class="nx">$lt</span><span class="o">:</span><span class="mi">30</span><span class="p">}});</span>
+<div class="highlight"><pre><span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">age</span><span class="o">:</span><span class="p">{</span><span class="nx">$lt</span><span class="o">:</span><span class="mi">20</span><span class="p">},</span> <span class="nx">salary</span><span class="o">:</span><span class="p">{</span><span class="nx">$gt</span><span class="o">:</span><span class="mi">50000</span><span class="p">}</span> <span class="p">});</span> 
 </pre></div>
 
-<p>$lt is the less than operator. Similarly there are $gt(greater than), $lte(less than equal to),
-$gte(greater than equal), $ne(not equal). Complete list is given below.</p>
+<p>There are other operators like less than equal to, greater than equal($lte, $gte).</p>
 
-<p>Select users with age greater 30 or salary greater than 50000.</p>
+<h3>
+<a name="string-operations" class="anchor" href="#string-operations"><span class="octicon octicon-link"></span></a>String Operations</h3>
 
-<div class="highlight"><pre> <span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">$or</span><span class="o">:</span><span class="p">{</span><span class="nx">age</span><span class="o">:</span><span class="p">{</span><span class="nx">$gt</span><span class="o">:</span><span class="mi">30</span><span class="p">},</span> <span class="nx">salary</span><span class="o">:</span><span class="p">{</span><span class="nx">$gt</span><span class="o">:</span><span class="mi">50000</span><span class="p">}</span> <span class="p">}</span> <span class="p">});</span>
+<p>All string operations are case insensitive.</p>
+
+<p>Search for strings which start with A</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span>  <span class="p">[</span><span class="s2">"Agra"</span><span class="p">,</span> <span class="s2">"Amritsar"</span><span class="p">,</span> <span class="s2">"Bangalore"</span><span class="p">];</span>
+<span class="nx">where</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="p">{</span><span class="nx">$startsWith</span><span class="o">:</span><span class="s1">'A'</span><span class="p">}</span> <span class="p">);</span><span class="c1">//["Agra","Amritsar"];</span>
 </pre></div>
 
-<p>$or operator accepts an array of filters and any of them returns true, then it returns true.
-Other Logical operators are $nor, $not, $and</p>
+<p>Similarly there is a $endsWith operator, and a $regex to match regex</p>
 
-<p>Select users whose first name is not David</p>
+<p>$contains operator, to search for a string anywhere in the input</p>
 
-<div class="highlight"><pre> <span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">$not</span><span class="o">:</span><span class="p">{</span><span class="nx">fname</span><span class="o">:</span><span class="s1">'David'</span><span class="p">}})</span>
+<div class="highlight"><pre><span class="nx">input</span> <span class="o">=</span>    <span class="p">[{</span><span class="nx">x</span><span class="o">:</span><span class="s1">'aaAaa'</span><span class="p">},{</span><span class="nx">x</span><span class="o">:</span><span class="s2">"bbAaabcd"</span><span class="p">},{</span><span class="nx">x</span><span class="o">:</span><span class="s1">'Baabcd'</span><span class="p">}];</span>
+<span class="nx">where</span><span class="p">(</span><span class="nx">input</span><span class="p">,</span> <span class="p">{</span><span class="nx">x</span><span class="o">:</span><span class="p">{</span><span class="nx">$contains</span><span class="o">:</span><span class="s1">'Aaa'</span><span class="p">}}</span> <span class="p">);</span> <span class="c1">//[{x:'aaAaa'},{x:"bbAaabcd"}];</span>
+</pre></div>
 
- <span class="c1">//OR</span>
+<h3>
+<a name="logical-operations" class="anchor" href="#logical-operations"><span class="octicon octicon-link"></span></a>Logical Operations</h3>
 
- <span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">fname</span><span class="o">:</span><span class="p">{</span><span class="nx">$not</span><span class="o">:</span><span class="s1">'David'</span><span class="p">}})</span>
+<p>These operators accepts an array of filters.</p>
 
+<p>$or: Returns true if any one of the filters return true</p>
+
+<p>Search for users with age greater than 30 or salary greater than 50000</p>
+
+<div class="highlight"><pre><span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">$or</span><span class="o">:</span><span class="p">[</span> <span class="p">{</span><span class="nx">age</span><span class="o">:</span><span class="p">{</span><span class="nx">$gt</span><span class="o">:</span><span class="mi">30</span><span class="p">}},{</span><span class="nx">salary</span><span class="o">:</span><span class="p">{</span><span class="nx">$gt</span><span class="o">:</span><span class="mi">50000</span><span class="p">}}]</span> <span class="p">});</span>
+</pre></div>
+
+<p>Similarly there are $and(default: all should be true) and $nor(all should be false).</p>
+
+<p>$not: inverses the output of the filter.</p>
+
+<div class="highlight"><pre><span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">$not</span><span class="o">:</span><span class="p">{</span><span class="nx">fname</span><span class="o">:</span><span class="s1">'David'</span><span class="p">}});</span> 
+</pre></div>
+
+<h3>
+<a name="condition-as-a-function" class="anchor" href="#condition-as-a-function"><span class="octicon octicon-link"></span></a>Condition as a function</h3>
+
+<p>This can be used to give custom filters</p>
+
+<p>Search for all even numbers</p>
+
+<div class="highlight"><pre><span class="nx">where</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],</span><span class="kd">function</span><span class="p">(</span><span class="nx">o</span><span class="p">){</span> <span class="k">return</span> <span class="p">(</span><span class="nx">o</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">}</span>  <span class="p">)</span> <span class="c1">//  [4,6]</span>
+</pre></div>
+
+<p>Search for users whose age is 50</p>
+
+<div class="highlight"><pre><span class="nx">where</span><span class="p">(</span><span class="nx">users</span><span class="p">,{</span><span class="nx">age</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">){</span> <span class="k">return</span> <span class="nx">a</span> <span class="o">==</span> <span class="mi">50</span><span class="p">}</span> <span class="p">}</span> <span class="p">)</span>
 </pre></div>
 
 <h2>
@@ -186,6 +226,14 @@ Other Logical operators are $nor, $not, $and</p>
 <li>$gte</li>
 <li>$in</li>
 <li>$ni</li>
+</ul><h5>
+<a name="string-operators" class="anchor" href="#string-operators"><span class="octicon octicon-link"></span></a>String Operators</h5>
+
+<ul>
+<li>$startsWith</li>
+<li>$endsWith</li>
+<li>$contains</li>
+<li>$regex</li>
 </ul><h4>
 <a name="logical-operators" class="anchor" href="#logical-operators"><span class="octicon octicon-link"></span></a>Logical operators</h4>
 
@@ -201,12 +249,6 @@ Other Logical operators are $nor, $not, $and</p>
 <li>$elemMatch</li>
 <li>$size</li>
 <li>$all</li>
-</ul><h4>
-<a name="general-operators" class="anchor" href="#general-operators"><span class="octicon octicon-link"></span></a>General operators</h4>
-
-<ul>
-<li>$where</li>
-<li>$regex</li>
 </ul>
       </section>
 
